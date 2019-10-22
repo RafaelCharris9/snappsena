@@ -16,7 +16,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'lastname',
+        'birthdate',
+        'telephone',
+        'rol_id',
+        'occupation_id',
+        'headquarter_id',
+        'area_id',
+        'status'
     ];
 
     /**
@@ -36,4 +46,32 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtolower($value);
+    }
+    public function getNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+    public function rol ()
+    {
+        return $this->belongsTo('App\Rol');
+    }
+    public function headquarter ()
+    {
+        return $this->belongsTo('App\Headquarter');
+    }
+    public function occupation ()
+    {
+        return $this->belongsTo('App\Occupation');
+    }
+    public function area ()
+    {
+        return $this->belongsTo('App\Area');
+    }
+    public function novelties ()
+    {
+        return $this->hasMany('App\novelties');
+    }
 }
